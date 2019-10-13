@@ -25,7 +25,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/cbocovic/chord"
+	"github.com/postables/cbocovic-chord"
 	"io"
 )
 

@@ -29,7 +29,7 @@ package chord
 
 import (
 	"fmt"
-	"github.com/cbocovic/chord/internal"
+	"github.com/postables/cbocovic-chord/internal"
 	"github.com/golang/protobuf/proto"
 	"log"
 )

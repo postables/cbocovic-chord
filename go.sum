@@ -1,0 +1,4 @@
+github.com/cbocovic/chord v0.0.0-20180316172411-17010ac448d4 h1:7yG6jWVTQLDqgRiZBdkUyRtAXReF3084CVMToXyUmUk=
+github.com/cbocovic/chord v0.0.0-20180316172411-17010ac448d4/go.mod h1:s8y9k8ttCqLxV4gSvyDOczFx96VtxzXM5kJE7N0Wq8o=
+github.com/golang/protobuf v1.3.2 h1:6nsPYzhq5kReh6QImI3k5qWzO4PEbvbIW2cwSfR/6xs=
+github.com/golang/protobuf v1.3.2/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
