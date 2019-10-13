@@ -25,8 +25,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/postables/cbocovic-chord"
 	"io"
+	"os"
+
+	chord "github.com/postables/cbocovic-chord"
+
 	//"runtime"
 	"time"
 )
@@ -35,7 +38,7 @@ func main() {
 	//runtime.GOMAXPROCS(runtime.NumCPU())
 
 	var startaddr string
-
+	var err error
 	//set up flags
 	numPtr := flag.Int("num", 1, "the size of the DHT you wish to test")
 	startPtr := flag.Int("start", 1, "ipaddr to start from")
@@ -59,7 +62,11 @@ func main() {
 		list[0] = me
 	} else {
 		me := new(chord.ChordNode)
-		me = chord.Join(startaddr, "127.0.0.2:8888")
+		me, err = chord.Join(startaddr, "127.0.0.2:8888")
+		if err != nil {
+			fmt.Println("failed to join cord", err.Error())
+			os.Exit(1)
+		}
 		list[0] = me
 	}
 
@@ -73,7 +80,11 @@ func main() {
 		addr := fmt.Sprintf("127.%d.%d.%d:8888", high, middle, low)
 
 		fmt.Printf("Joining %d server starting at %s!\n", 1, addr)
-		node = chord.Join(addr, startaddr)
+		node, err = chord.Join(addr, startaddr)
+		if err != nil {
+			fmt.Println("failed to join cord", err.Error())
+			os.Exit(1)
+		}
 		list[i] = node
 		fmt.Printf("Joined server: %s.\n", addr)
 	}
@@ -88,7 +99,7 @@ Loop:
 			//print out successors and predecessors
 			fmt.Printf("Node\t\t Successor\t\t Predecessor\n")
 			for _, node := range list {
-				fmt.Printf("%s\n", node.Info())
+				fmt.Printf("%s\n", node.String())
 			}
 		case cmd == "fingers":
 			//print out finger table

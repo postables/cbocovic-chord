@@ -25,8 +25,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/postables/cbocovic-chord"
 	"io"
+	"os"
+
+	chord "github.com/postables/cbocovic-chord"
 )
 
 func main() {
@@ -37,12 +39,16 @@ func main() {
 
 	flag.Parse()
 	me := new(chord.ChordNode)
-
+	var err error
 	//join node to network or start a new network
 	if *joinPtr == "" {
 		me = chord.Create(*addressPtr)
 	} else {
-		me = chord.Join(*addressPtr, *joinPtr)
+		me, err = chord.Join(*addressPtr, *joinPtr)
+		if err != nil {
+			fmt.Println("failed to join: ", err.Error())
+			os.Exit(1)
+		}
 	}
 	fmt.Printf("My address is: %s.\n", *addressPtr)
 	//block until receive input
@@ -53,7 +59,7 @@ Loop:
 		switch {
 		case cmd == "print":
 			//print out successor and predecessor
-			fmt.Printf("%s", me.Info())
+			fmt.Printf("%s", me.String())
 		case cmd == "fingers":
 			//print out finger table
 			fmt.Printf("%s", me.ShowFingers())
